@@ -1,0 +1,8 @@
+CLIENT_ID=""
+CODE=""
+CLIENT_SECRET=""
+ACCESS_TOKEN=""
+
+[WATCH_LIST]
+# ita<tab>searchwords<tab>filename<tab>rss_title
+venture	Yahoo! JAPAN	yahoo	RSS:Yahoo! JAPAN

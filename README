@@ -1,0 +1,17 @@
+アプリ登録
+https://github.com/account/applications
+
+ブラウザからアクセス許可
+https://github.com/login/oauth/authorize?client_id=******
+
+リダイレクト後のコードクエリパラメータをコピペ
+https://redirect_url?code=*********
+
+コードを使ってアクセストークン取得
+curl --url "https://github.com/login/oauth/access_token"
+    --data-urlencode "client_id="
+    --data-urlencode "client_secret="
+    --data-urlencode "code="
+
+http://developer.github.com/v3/oauth
+http://developer.github.com/v3/gists
