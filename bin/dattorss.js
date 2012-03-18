@@ -145,5 +145,4 @@ process.argv.splice(3, process.argv.length-3).forEach(function (uri) {
     });
 });
 
-
-
+/* vim: set ts=4 sts=4 sw=4: */
