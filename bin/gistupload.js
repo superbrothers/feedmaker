@@ -6,9 +6,9 @@ var path = require('path');
 var exec = require('child_process').exec;
 var crypto = require('crypto');
 
-var scrape = require(path.join('..', '..', 'scraper', 'lib', 'scrape.js'));
-var regex = require(path.join('..', '..', 'scraper', 'lib', 'regex.js'));
-var async = require(path.join('..', '..', 'scraper', 'lib', 'async', 'lib', 'async.js'));
+var scrape = require(path.join('..', 'lib', 'scrape.js'));
+var regex = require(path.join('..', 'lib', 'regex.js'));
+var async = require(path.join('..', 'lib', 'async', 'lib', 'async.js'));
 
 var config = fs.readFileSync(path.join(__dirname, '..', 'conf', 'config'));
 var access_token = new RegExp('ACCESS_TOKEN="([^"]+)"').exec(config)[1];
