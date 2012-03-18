@@ -98,6 +98,11 @@ function zP(val) {
     return tmpS ;
 }
 
+// 数値の前に"0"を追加して桁を合わせる
+function fillZero(n) {
+    return n < 10 ? "0" + n : n;
+}
+
 queue.drain = function() {
     res.sort(function (a, b) { return a.date > b.date ? -1 : 1; });
     console.log("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns=\"http://purl.org/rss/1.0/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:content=\"http://purl.org/rss/1.0/modules/content/\" xmlns:cc=\"http://web.resource.org/cc/\" xml:lang=\"ja\">");
@@ -125,11 +130,11 @@ queue.drain = function() {
         console.log("</content:encoded>");
         console.log("<dc:subject>2ch</dc:subject>");
         var utc_date = item.date_str.getUTCFullYear() + "-";
-        utc_date += ((item.date_str.getUTCMonth()+1) < 10) ? '0' + (item.date_str.getUTCMonth()+1) : (item.date_str.getUTCMonth()+1) + "-";
-        utc_date += ((item.date_str.getUTCDate() < 10) ? '0' + item.date_str.getUTCDate() : item.date_str.getUTCDate()) + "T";
-        utc_date += ((item.date_str.getUTCHours() < 10) ? '0' + item.date_str.getHours() : item.date_str.getHours()) + ":";
-        utc_date += ((item.date_str.getUTCMinutes() < 10) ? '0' + item.date_str.getMinutes() : item.date_str.getMinutes()) + ":";
-        utc_date += ((item.date_str.getUTCSeconds() < 10) ? '0' + item.date_str.getSeconds() : item.date_str.getSeconds()) + "+09:00";
+        utc_date += fillZero(item.date_str.getUTCMonth() + 1) + "-";
+        utc_date += fillZero(item.date_str.getUTCDate()) + "T";
+        utc_date += fillZero(item.date_str.getUTCHours()) + ":";
+        utc_date += fillZero(item.date_str.getUTCMinutes()) + ":";
+        utc_date += fillZero(item.date_str.getUTCSeconds()) + "+09:00";
         console.log("<dc:date>" + utc_date + "</dc:date>");
         console.log("<dc:creator>Ajido</dc:creator>");
         console.log("<dc:publisher>GitHub</dc:publisher>");
