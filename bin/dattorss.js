@@ -9,6 +9,7 @@ var crypto = require('crypto');
 var scrape = require(path.join('..', 'lib', 'scrape.js'));
 var regex = require(path.join('..', 'lib', 'regex.js'));
 var async = require(path.join('..', 'lib', 'async', 'lib', 'async.js'));
+var generateXML = require(path.join('..', 'lib', 'xml.js');
 var res = [];
 
 function parse_res (thread, uri, item) {
@@ -98,49 +99,9 @@ function zP(val) {
     return tmpS ;
 }
 
-// 数値の前に"0"を追加して桁を合わせる
-function fillZero(n) {
-    return n < 10 ? "0" + n : n;
-}
-
 queue.drain = function() {
-    res.sort(function (a, b) { return a.date > b.date ? -1 : 1; });
-    console.log("<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns=\"http://purl.org/rss/1.0/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:content=\"http://purl.org/rss/1.0/modules/content/\" xmlns:cc=\"http://web.resource.org/cc/\" xml:lang=\"ja\">");
-    console.log("<channel rdf:about=\"https://github.com/Ajido/\">");
-    console.log("<title>" + process.argv[2] + "</title>");
-    console.log("<link>https://github.com/Ajido/</link>");
-    console.log("<description></description>");
-    console.log("<dc:language>ja</dc:language>");
-    console.log("<items>");
-    console.log("<rdf:Seq>");
-    res.forEach(function (item) {
-        console.log("<rdf:li rdf:resource=\"" + item.link + "\"/>");
-    });
-    console.log("</rdf:Seq>");
-    console.log("</items>");
-    console.log("</channel>");
-    res.forEach(function (item) {
-        console.log("<item rdf:about=\"" + item.link + "\">");
-        console.log("<link>" + item.link + "</link>");
-        console.log("<title>" + item.title + "</title>");
-        console.log("<description>");
-        console.log("</description>");
-        console.log("<content:encoded>");
-        console.log("<![CDATA[" + attach_css(item, false) + "]]>");
-        console.log("</content:encoded>");
-        console.log("<dc:subject>2ch</dc:subject>");
-        var utc_date = item.date_str.getUTCFullYear() + "-";
-        utc_date += fillZero(item.date_str.getUTCMonth() + 1) + "-";
-        utc_date += fillZero(item.date_str.getUTCDate()) + "T";
-        utc_date += fillZero(item.date_str.getUTCHours()) + ":";
-        utc_date += fillZero(item.date_str.getUTCMinutes()) + ":";
-        utc_date += fillZero(item.date_str.getUTCSeconds()) + "+09:00";
-        console.log("<dc:date>" + utc_date + "</dc:date>");
-        console.log("<dc:creator>Ajido</dc:creator>");
-        console.log("<dc:publisher>GitHub</dc:publisher>");
-        console.log("</item>");
-    });
-    console.log("</rdf:RDF>");
+    var xml = generateXML(process.argv[2], res, attach_css);
+    console.log(xml);
 }
 
 process.argv.splice(3, process.argv.length-3).forEach(function (uri) {
