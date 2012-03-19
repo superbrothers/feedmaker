@@ -14,14 +14,13 @@ var res = [];
 
 function parse_res (thread, uri, item) {
     var date_str = regex(/([0-9]{4}\/[0-9]{2}\/[0-9]{2})[^0-9]+([0-9]{2}:[0-9]{2}:[0-9]{2})/g, item, {concat:'$1 $2', limit:1});
-    var date = new Date(date_str);
     var mailto = regex(/<a href="mailto[^"]+"><b>([^<]+)<\/b><\/a>/g, item, {concat:'$1', limit:1});
     var time = regex(/[0-9]{4}\/([0-9]{2}\/[0-9]{2})[^0-9]+([0-9]{2}:[0-9]{2}):[0-9]{2}/g, item, {concat:'$1 $2', limit:1});
     var ids = regex(/ID:([^<]+)<dd>/g, item, {concat:'$1', limit:1});
     var body = regex(/ID:[^<]+<dd>(.*?)$/g, item, {concat:'$1', limit:1});
     var title = body.replace(/<[^>]+>/g, '').replace(/[ 　]/g, '').slice(0, 30);
     var num = +(regex(/([0-9]+)/g, item, {concat:'$1', limit:1}));
-    return {date:+date, mailto:mailto, ids:ids, date_str:date, num:num, thread:thread, title:title, time:time, body:body, link:uri+'/'+num};
+    return {mailto:mailto, ids:ids, date_str:date, num:num, thread:thread, title:title, time:time, body:body, link:uri+'/'+num};
 }
 
 function attach_css (item, anc) {
@@ -101,7 +100,7 @@ function zP(val) {
 }
 
 queue.drain = function() {
-    res.sort(function (a, b) { return a.date > b.date ? -1 : 1; });
+    res.sort(function (a, b) { return +a.date_str > +b.date_str ? -1 : 1; });
     var xml = generateXML(process.argv[2], res, attach_css);
     console.log(xml);
 }
