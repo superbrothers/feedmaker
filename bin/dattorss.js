@@ -84,6 +84,7 @@ var queue = async.queue(function (task, callback) {
             var json = parse_res(thread, task.uri, item);
             if (json) {
                 json.anc_html = search_anc(json, res_ary);
+                json.content = attach_css(json, false);
                 res.push(json);
             }
         });
