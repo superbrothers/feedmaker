@@ -9,9 +9,9 @@ module.exports = {
   setUp: function (callback) {
     var res = [
       {
-          date_str: new Date()
-        , title   : "title"
-        , link    : "http://example.jp"
+          date  : new Date()
+        , title : "title"
+        , link  : "http://example.jp"
         , content : "content"
       }
     ];
