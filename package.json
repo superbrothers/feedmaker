@@ -1,0 +1,20 @@
+{
+  "author": "Ajido",
+  "name": "feedmaker",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Ajido/feedmaker.git"
+  },
+  "scripts": {
+    "test": "nodeunit"
+  },
+  "dependencies": {
+    "async": "*"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}

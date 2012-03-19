@@ -5,10 +5,10 @@ var fs = require('fs');
 var path = require('path');
 var exec = require('child_process').exec;
 var crypto = require('crypto');
+var async = require('async');
 
 var scrape = require(path.join('..', 'lib', 'scrape.js'));
 var regex = require(path.join('..', 'lib', 'regex.js'));
-var async = require(path.join('..', 'lib', 'async', 'lib', 'async.js'));
 var generateXML = require(path.join('..', 'lib', 'xml.js');
 var res = [];
 
