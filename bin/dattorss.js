@@ -101,6 +101,7 @@ function zP(val) {
 }
 
 queue.drain = function() {
+    res.sort(function (a, b) { return a.date > b.date ? -1 : 1; });
     var xml = generateXML(process.argv[2], res, attach_css);
     console.log(xml);
 }
