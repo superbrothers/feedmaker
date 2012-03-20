@@ -84,7 +84,7 @@ var queue = async.queue(function (task, callback) {
         var res_ary = data.split('\n');
         if (!res_ary) res_ary = [];
         res_ary.forEach(function (item) {
-            if (item.indexOf('<a href="mailto:') == -1) return;
+            if (item.indexOf('<a href="mailto:') === -1) return;
             var json = parse_res(thread, task.uri, item);
             if (json) {
                 json.anc_html = search_anc(json, res_ary);
