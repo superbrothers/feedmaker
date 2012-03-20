@@ -14,14 +14,18 @@ var res = [];
 
 function parse_res (thread, uri, item) {
     var date_str = regex(/([0-9]{4}\/[0-9]{2}\/[0-9]{2})[^0-9]+([0-9]{2}:[0-9]{2}:[0-9]{2})/g, item, {concat: '$1 $2', limit: 1});
-    var date = new Date(date_str);
-    var mailto = regex(/<a href="mailto[^"]+"><b>([^<]+)<\/b><\/a>/g, item, {concat: '$1', limit: 1});
-    var time = regex(/[0-9]{4}\/([0-9]{2}\/[0-9]{2})[^0-9]+([0-9]{2}:[0-9]{2}):[0-9]{2}/g, item, {concat: '$1 $2', limit: 1});
-    var ids = regex(/ID:([^<]+)<dd>/g, item, {concat: '$1', limit: 1});
-    var body = regex(/ID:[^<]+<dd>(.*?)$/g, item, {concat: '$1', limit: 1});
-    var title = body.replace(/<[^>]+>/g, '').replace(/[ 　]/g, '').slice(0, 30);
-    var num = +(regex(/([0-9]+)/g, item, {concat:'$1', limit:1}));
-    return {mailto: mailto, ids :ids, date: date, num: num, thread: thread, title: title, time: time, body: body, link: uri + '/' + num};
+
+    return {
+        thread: thread,
+        date  : new Date(date_str),
+        mailto: regex(/<a href="mailto[^"]+"><b>([^<]+)<\/b><\/a>/g, item, {concat: '$1', limit: 1}),
+        time  : regex(/[0-9]{4}\/([0-9]{2}\/[0-9]{2})[^0-9]+([0-9]{2}:[0-9]{2}):[0-9]{2}/g, item, {concat: '$1 $2', limit: 1}),
+        ids   : regex(/ID:([^<]+)<dd>/g, item, {concat: '$1', limit: 1}),
+        body  : regex(/ID:[^<]+<dd>(.*?)$/g, item, {concat: '$1', limit: 1}),
+        title : body.replace(/<[^>]+>/g, '').replace(/[ 　]/g, '').slice(0, 30),
+        num   : +(regex(/([0-9]+)/g, item, {concat:'$1', limit:1})),
+        link  : uri + '/' + num
+    };
 }
 
 function attach_css (item, anc) {
