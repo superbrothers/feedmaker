@@ -95,9 +95,8 @@ var queue = async.queue(function (task, callback) {
 }, 1);
 
 function zP(val) {
-    var vS = val.toString(16) ;
-    tmpS = ("00" + vS).slice(-2) ;
-    return tmpS;
+    var vS = val.toString(16);
+    return ("00" + vS).slice(-2);
 }
 
 queue.drain = function() {
