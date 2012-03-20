@@ -63,7 +63,7 @@ function search_anc (res_json, res_ary) {
     var anc_ary = regex(/&gt;&gt;([0-9]{1,3})/g, res_json.body, {concat: '$1', limit: 10});
     anc_ary = unique(anc_ary);
     anc_ary.forEach(function (i) {
-        if (i === '1' || +i === 1) return;
+        if (parseInt(i) === 1) return;
         res_ary.forEach(function (item) {
             if (item.indexOf("<dt>" + i + " ：") !== 0) return;
             var obj = parse_res("", "", item);
